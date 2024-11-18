@@ -32,6 +32,7 @@ import { TabViewModule } from 'primeng/tabview'
   ToolbarModule,TabViewModule,
   MenubarModule, PanelMenuModule, SidebarModule, CardModule,TableModule,DynamicDialogModule,
   DropdownModule, RadioButtonModule, CheckboxModule, InputNumberModule,ToastModule,TreeSelectModule
-  ]
+  ],
+  providers:[ MessageService, ConfirmationService]
 })
 export class PrimengModule { }

@@ -9,6 +9,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 import { ProdutolistaComponent } from './pages/produto/produtolista/produtolista.component';
+import { MessageService } from 'primeng/api';
+import { DialogService } from 'primeng/dynamicdialog';
+import { ProdutoService } from './services/produto.service';
 
 registerLocaleData(localePt, 'pt-BR');
 @NgModule({
@@ -25,7 +28,7 @@ registerLocaleData(localePt, 'pt-BR');
     HttpClientModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [ { provide: LOCALE_ID, useValue: 'pt-BR' }, HttpClientModule,
+  providers: [ { provide: LOCALE_ID, useValue: 'pt-BR' }, HttpClientModule, MessageService, DialogService, ProdutoService
     ],
   bootstrap: [AppComponent]
 })
