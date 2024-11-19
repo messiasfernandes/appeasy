@@ -1,1 +1,155 @@
-<p>produtolista works!</p>
+<div class="container">
+  <p-card header="Lista de Produtos">
+    <div class="grid">
+
+      <div class="col-12 md:col-6 lg:col-3 p-fluid">
+        <form autocomplete="off" (ngSubmit)="buscar()" >
+
+
+
+          <div class="p-inputgroup">
+            <span class="p-float-label">
+            <input type="text" id="inputgroup" name="parametro" pInputText [(ngModel)]="produtofiltro.parametro"
+              class="p-inputtext" placeholder="pesquisar por id, nome do produto, código ean 13" />
+              <label for="marca">Pesquisar</label>
+            </span>
+            <button type="button" pButton icon="fa-solid fa-search" (click)="buscar()" class=" p-button-lg"
+              styleClass="p-button-warn"></button>
+          </div>
+
+
+        </form>
+      </div>
+      <div class="col-12 md:col-6 lg:col-2  p-fluid">
+        <button pButton icon="fa-solid fa-circle-plus " type="button" pTooltip="Adicionar Produto" label="novo"
+          routerLink="/produtos/novo" routerLinkActive="active-link" class="p-button-success p-button-lg"></button>
+      </div>
+
+    </div>
+    <div class="grid">
+      <div class="col-12 ">
+
+        <p-table [value]="produtos" [paginator]="true"  responsiveLayout="stack" [rowHover]="true"
+        [rows]="produtofiltro.itensPorPagina" responsiveLayout="stack" selectionMode="single"
+        styleClass="p-datatable-gridlines p-datatable-sm p-datatable-customer" dataKey="id" [lazy]="true"
+        (onLazyLoad)="aoMudarPagina($event)"  [totalRecords]="totalRegistros"
+        >
+
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="text-align: center;"> Expandir</th>
+            <th>Id </th>
+            <th>produto</th>
+
+            <th style="text-align: center;">Marca </th>
+            <th style="text-align: center;">Preço</th>
+            <th style="text-align: center;">Estoque </th>
+
+
+            <th style="text-align: center;">Ações</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-produto let-expanded="expanded">
+          <tr [pSelectableRow]="produto">
+            <td>
+              <button type="button" pButton pRipple [pRowToggler]="produto"
+                class="p-button-text p-button-rounded p-button-plain"
+                [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+            </td>
+
+            <td>{{ produto.id }}</td>
+            <td>{{ produto.produto }}</td>
+
+            <td style="text-align: center;">
+
+
+
+                {{ produto.marca?.marca || 'Sem marca' }}
+              </td>
+
+            <td style="text-align: center;" >{{ produto.precoVenda  | currency: 'BRL'}}</td>
+          <td style="text-align: center;">{{ produto.estoque?.estoqueAtual || 0 }}</td>
+
+            <td>
+
+              <div class=" flex align-items-center justify-content-center ">
+                <a>
+
+                  <button pButton pRipple icon="fa-solid fa-pen" pTooltip="Editar" tooltipPosition="top"
+                     class="p-button-primary mr-2 p-button-text"
+                    type="button"></button>
+                </a>
+
+                <button pButton pRipple icon="fa-solid fa-trash " type="button" pTooltip="Excluir"
+                  tooltipPosition="top" class=" p-button-danger mr2 p-button-text "></button>
+                  <button pButton pRipple icon="fa-solid fa-truck-ramp-box " type="button"
+                   pTooltip="Estoque" (click)="showEntradaMoviemtno(produto)"
+                  tooltipPosition="top" class=" p-button-info mr2 p-button-text "></button>
+                  <button pButton pRipple icon="fa-solid fa-eye " type="button" pTooltip="Detalhar"
+                  tooltipPosition="top" class=" p-button-secondary mr2 p-button-text "></button>
+              </div>
+
+            </td>
+
+
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="rowexpansion" let-produto>
+          <tr>
+            <td colspan="7">
+              <div class="p-3">
+                <p-table [value]="produto.variacoes" dataKey="id" selectionMode="single" responsiveLayout="stack"
+                  dataKey="id" responsiveLayout="stack"  >
+                  <ng-template pTemplate="header">
+          <tr pSelectableRow="produto">
+
+            <th>Id </th>
+
+            <th>Codigo Ean 13</th>
+            <th style="text-align: center;">Unidade Medida</th>
+            <th style="text-align: center;">Qtde Estoque </th>
+            <th style="text-align: center;">Caracteristica </th>
+            <th style="text-align: center;">Qtde por Embalagem </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-item>
+          <tr [pSelectableRow]="item">
+
+            <td>{{ item.id }}</td>
+
+
+            <td>{{ item.ean13 }}</td>
+            <td style="text-align: center;">{{ item.unidade }}</td>
+            <td style="text-align: center;">{{ item.qtdeEstoque }}</td>
+            <td >{{ item.caracterisca }}</td>
+            <td style="text-align: center;">{{ item.qtdeporEmbalagem }}</td>
+
+          </tr>
+        </ng-template>
+
+
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td colspan="6">Produto sem varição</td>
+          </tr>
+        </ng-template>
+
+
+
+      </p-table>
+    </div>
+    </td>
+    </tr>
+    </ng-template>
+    </p-table>
+
+    </div>
+
+  </div>
+
+
+
+
+  </p-card>
+
+</div>

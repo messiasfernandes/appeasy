@@ -12,6 +12,7 @@ import { ProdutolistaComponent } from './pages/produto/produtolista/produtolista
 import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ProdutoService } from './services/produto.service';
+import { FormsModule } from '@angular/forms';
 
 registerLocaleData(localePt, 'pt-BR');
 @NgModule({
@@ -26,6 +27,7 @@ registerLocaleData(localePt, 'pt-BR');
     PrimengModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    FormsModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [ { provide: LOCALE_ID, useValue: 'pt-BR' }, HttpClientModule, MessageService, DialogService, ProdutoService
